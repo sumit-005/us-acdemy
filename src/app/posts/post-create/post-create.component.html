@@ -1,0 +1,188 @@
+<div class="sk">
+<form  [formGroup]="form" (submit)="onSavePost()">
+  
+  <div class="form-group col-md-9 ">
+    <label >Name</label>
+    <!-- <div class="input-group"> -->
+    <div class="input-group-prepend">
+    <span class="input-group-text " ><i class="fas fa-user "></i></span>
+    <input type="text" class="form-control" formControlName="title" placeholder="Enter name" name = "title"
+     required minlength="3"   >
+    </div>
+
+    <div *ngIf="form.get('title').invalid && (form.get('title').touched)"
+    class="alert alert-danger" >
+    <div *ngIf="form.get('title').errors.required">
+      Name is required.
+    </div>
+    <div *ngIf="form.get('title').errors.minlength">
+      Name must be at least 4 characters long.
+    </div>
+</div>
+  </div>
+  <div class="form-group col-md-9">
+
+    <label for="exampleInputPassword1">Company's Name</label>
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1"><i class="fas fa-briefcase"></i></span>
+    <input type="text"  class="form-control" id="exampleInputPassword1"  formControlName="company" placeholder="Enter your Company's Name" name="company"
+       >
+    </div>
+
+    <div *ngIf="form.get('company').invalid && (form.get('company').dirty || form.get('company').touched)"
+    class="alert alert-danger">
+    <div *ngIf="form.get('company').errors.required">
+
+      Company's Name is required.
+    </div>
+    </div>
+  </div>
+
+  <div class="form-group col-md-9">
+
+    <label for="exampleInputPassword1">Description</label>
+    <div class="input-group-prepend">
+      <span class="input-group-text" ><i class="fas fa-address-card"></i></span>
+    <textarea type="text"  class="form-control"  placeholder="Tell about yourslef" name="description"
+     minlength="50" rows="4" maxlength="130"  formControlName="description"></textarea>
+    </div>
+    <div *ngIf="form.get('description').invalid && (form.get('description').touched)"
+    class="alert alert-danger" >
+    <div *ngIf="form.get('description').errors.required">
+      Description is required.
+    </div>
+    <div *ngIf="form.get('description').errors.minlength">
+      Description must be of at least 18- 20 words . 
+    </div><div *ngIf="form.get('description').errors.maxlength">
+      Description should not be above 50 words. 
+    </div>
+  </div>
+  </div>
+  <div class="form-row col-md-12">
+  <div class="form-group col-md-5">
+    <label for="email">Email Id:</label>
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+    <input type="email"
+    class="form-control"
+    pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$"
+     formControlName="email"
+      email="true"
+      name="email"
+   placeholder="Enter your email"
+      >
+    </div>
+
+
+
+      <div *ngIf="form.get('email').invalid && (form.get('email').touched)"
+  class="alert alert-danger">
+
+      <div *ngIf="form.get('email').errors.required && form.get('email').untouched">
+       email is required.
+      </div>
+     <div *ngIf="form.get('email').errors.pattern">
+        <span style="color:red">Email not Valid</span>
+     </div>
+
+
+  </div>
+
+  </div>
+  <div class="form-group  col-md-4 ">
+    <label >Mobile No</label>
+    <div class="input-group-prepend" ><span class="input-group-text" style="color: #0984e3;">+91</span>
+    <input type="number" class="form-control "  placeholder="Enter Mobile Number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+    name = "mblno"      
+    formControlName="mblno"
+        minlength="10"
+        maxlength="10"
+        pattern="^(\+\d{1,3}[- ]?)?\d{10}$">
+
+    <div *ngIf="form.get('mblno').invalid && (form.get('mblno').touched)"
+    class="alert alert-danger">
+     <div *ngIf="form.get('mblno').errors.required">
+      Mobile Number not Valid
+    </div>
+    <div *ngIf="form.get('mblno').errors.pattern">
+      <span style="color:red">Number not Valid</span>
+   </div>
+   <div *ngIf="form.get('mblno').errors.maxlength || form.get('mblno').errors.minlength">
+      Number must be at 10 characters long.
+</div>
+</div>
+</div>
+</div>
+  </div>
+  <div class="form-group  col-md-5 ">
+    <label >Date of Birth</label>
+    <div class="input-group-prepend" ><span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+    <input type="date" name="bday"
+    class="form-control"   formControlName="bday"></div>
+    <div *ngIf="form.get('bday').invalid && (form.get('bday').touched)"
+    class="alert alert-danger">
+     <div *ngIf="form.get('bday').errors.required">
+      Valid Number is required.
+    </div>
+   
+</div>
+  </div>
+
+  <div class="form-group col-md-4 " >
+    <label>Gender</label><br>
+    <input type="radio" name="gender" value="Male" formControlName="gender"> Male
+    <input type="radio" name="gender" value="Female"  style="margin-left: 20px;"  formControlName="gender"> Female
+    <input type="radio" name="gender" value="Other"  style="margin-left: 20px;"  formControlName="gender"> Other
+  </div>
+
+  
+  <div class="form-group  col-md-6" >
+  <label >Designation</label><br>
+  <select class="custom-select" id="inputGroupSelect01" name="designation"  formControlName="designation">
+
+    <option selected disabled>Choose</option>
+    <option value="Jr.developer" required>Jr.developer</option>
+    <option value="Sr.Developer" required>Sr.Developer</option>
+    <option value="Manager" required>Manager</option>
+    <option value="Team Leader" required>Team Leader</option>
+    <option value="Hr" required>Hr</option>
+    <option value="Account" required>Account</option>
+    <option value="Admin" required>Admin</option>
+
+  </select>
+  </div>
+  <div class="form-group col-md-9 ">
+    <label >Upload photo</label><br>
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-file-image"></i></span>
+    <div class="text-center">
+      
+      <button type="button" class="form-control"  (click)="filePicker.click()">Choose file</button>
+    </div>
+  </div>
+  <small class="form-text text-muted">Upload img or jpeg or png below 300kb</small>
+ 
+      <input type="file"  #filePicker   class="form-control" (change)="onImagePicked($event)">
+    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview &&  form.get('image').valid">
+      <img [src]="imagePreview"  alt="">
+    </div>
+      
+
+
+
+  </div>
+  <br>
+  <div class="form-group col-md-5 " style="margin-top: 10px;" >
+    <input type="checkbox" name="check"  required>I accept the terms and conditions.<br>
+</div>
+
+<div class="form-group  col-md-4">
+  <button type="submit" class="btn btn-success"  style="margin-top: 10px;">Submit</button>
+</div>
+  
+</form>
+</div>
+
+
+
+<!-- pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$" -->

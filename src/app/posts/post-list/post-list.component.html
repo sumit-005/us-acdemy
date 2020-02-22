@@ -1,0 +1,284 @@
+<!-- <table class="table table-hover">
+  <thead  class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile No.</th>
+      <th scope="col">Date of Birth</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Designation</th>
+      <th *ngIf="userIsAuthenticated" scope="col">Edit</th >
+      <th *ngIf="userIsAuthenticated" scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let post of posts; let i = index">
+    <tr>
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ post.title }}</td>
+      <td>{{ post.company }}</td>
+      <td>{{ post.email }}</td>
+      <td>{{ post.mblno }}</td>
+      <td>{{ post.bday }}</td>
+      <td>{{ post.gender }}</td>
+      <td>{{ post.designation }}</td>
+
+
+      <td *ngIf="userIsAuthenticated">
+        <a  class="btn btn-success" [routerLink]="['/edit', post.id]"
+          ><i class="fas fa-user-edit"></i
+        ></a>
+      </td>
+      <td>
+        <button *ngIf="userIsAuthenticated" class="btn btn-danger"(click)="onDelete(post.id)">
+          <i class="fas fa-user-minus"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table> -->
+
+<section id="team" class="pb-5">
+  <div class="container">   
+    <div class="col-xs-8 col-xs-offset-2 srch">
+      <div class="input-group">
+              <div class="input-group-btn search-panel">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span id="search_concept">Filter by</span> <span class="caret"></span>
+                  </button><ul class="dropdown-menu" role="menu">
+                    <li><a href="#contains">Contains</a></li>
+                    <li><a href="#its_equal">It's equal</a></li>
+                    <li><a href="#greather_than">Greather than ></a></li>
+                    <li><a href="#less_than">Less than < </a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-submenu">
+                      <a tabindex="-1" href="#">More options</a>
+                      <ul class="dropdown-menu">
+                        <li><a href="">Hello</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <form class="form-inline my-2 my-lg-0"> 
+                  <input [(ngModel)]="userFilter.title"
+               [typeahead]="posts"
+              [(ngModel)]="userFilter.title"
+                   
+               [isAnimated]="true"
+               typeaheadOptionField="title"
+               [adaptivePosition]="true"
+       class="form-control">
+                  </form> 
+                
+            
+               <button  style="margin-left: auto; height: 40px;" type="button"   (click)="openModal(template)" class="btn btn-success"><i class="fas fa-plus"> </i>
+                 Quick Add 
+                </button> 
+
+
+
+                <ng-template #template>
+                  <div class="modal-header">
+                    <h4 class="modal-title pull-left">Quick Add Employee</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form [formGroup]="form" (submit)="onAdd()">
+                      <div class="form-row col-md-14">
+                        <div class="form-group col-sm-9 ">
+                          <label >Name</label>
+                          <input type="text" class="form-control" formControlName="title" placeholder="Enter name" name = "title"
+                            minlength="3"   >
+                          <div *ngIf="form.get('title').invalid && (form.get('title').touched)"
+                          class="alert alert-danger" >
+                          <div *ngIf="form.get('title').errors.required">
+                            Name is required.
+                          </div>
+                          <div *ngIf="form.get('title').errors.minlength">
+                            Name must be at least 4 characters long.
+                          </div>
+                      </div>
+                    </div>
+                        </div>
+                        <div class="form-row col-md-14">
+                          <div class="form-group col-md-6">
+                            <label for="email">Email Id:</label>
+                            <input type="email"
+                            class="form-control"
+                            pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$"
+                             formControlName="email"
+                              email="true"
+                              name="email"
+                           placeholder="Enter your email"
+                              >
+           
+                              <div *ngIf="form.get('email').invalid && (form.get('email').touched)"
+                          class="alert alert-danger">
+                        
+                              <div *ngIf="form.get('email').errors.required && form.get('email').untouched">
+                               email is required.
+                              </div>
+                             <div *ngIf="form.get('email').errors.pattern">
+                                <span style="color:red">Email not Valid</span>
+                             </div>
+                        
+                        
+                          </div>
+                        
+                          </div>
+                          <div class="form-group  col-md-6 ">
+                            <label >Mobile No</label>
+                            <input type="number" class="form-control "  placeholder="Enter Mobile Number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            name = "mblno"      
+                            formControlName="mblno"
+                                minlength="10"
+                                maxlength="10"
+                                pattern="^(\+\d{1,3}[- ]?)?\d{10}$">
+                        
+                            <div *ngIf="form.get('mblno').invalid && (form.get('mblno').touched)"
+                            class="alert alert-danger">
+                             <div *ngIf="form.get('mblno').errors.required">
+                              Mobile Number not Valid
+                            </div>
+                            <div *ngIf="form.get('mblno').errors.pattern">
+                              <span style="color:red">Number not Valid</span>
+                           </div>
+                           <div *ngIf="form.get('mblno').errors.maxlength || form.get('mblno').errors.minlength">
+                              Number must be at 10 characters long.
+                        </div>
+                        </div>
+                        </div>
+                          </div>
+                      <div class="form-row col-md-14">
+                          
+                      <div class="form-group col-md-9">
+                        <label >Company</label>
+                        <input type="text" class="form-control"  placeholder="Company Name">
+                      </div>
+                    </div>
+                
+                  
+
+                      <button type="submit" class="btn btn-info">Submit</button>
+                    </form>
+                  </div>
+                </ng-template>
+             
+</div>
+
+                </div>
+
+                
+
+
+                
+    <div class="row">
+      <!-- Team member -->
+      <div
+        class="col-xs-12 col-sm-6 col-md-4 sk"
+        *ngFor="let post of posts |filterBy: userFilter  let i = index"
+      >
+      
+        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+          <div class="mainflip">
+            <div class="frontside">
+              <div class="card">
+                <div class="card-body text-center">
+              
+                    <img
+                      class=" img-fluid"
+                      [src] ="post.imagePath" alt=""
+                      alt="card image"
+                      data-toggle="modal" data-target="#exampleModal"
+                    />
+                    
+            
+                  <h4 class="card-title">
+                    {{ post.title }}<br /><span
+                      style="color: slategray; font-weight: 800;"
+                      ><h6>{{ post.designation }}</h6></span
+                    >
+                    <h6 style="color: #3498db
+                    ;"> {{ post.company }}</h6>
+                  </h4>
+                  <p class="card-text">
+                    <i class="fas fa-paper-plane" style="padding: 5px;"></i
+                    >{{ post.email }}<br />
+                    <i class="fas fa-mobile-alt" style="padding: 5px;"></i
+                    >{{ post.mblno }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="backside">
+              <div class="card">
+                <div class="card-body text-center mt-4">
+                  <h4 class="card-title"> About</h4>
+                <p class="card-text">
+                  <span
+                    ><b>B'Day :{{ post.bday }}</b></span>
+                  
+                  <br />
+                  {{post.description}}</p>
+                </div>
+                <div class="card-footer">
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <a
+                      *ngIf="userIsAuthenticated"
+                        class="btn btn-success"
+                        [routerLink]="['/edit', post.id]"
+                        ><i class="fas fa-user-edit"></i
+                      ></a>
+                    </li>
+                    <li class="list-inline-item">
+                      <button
+                        *ngIf="userIsAuthenticated"
+                        class="btn btn-danger"
+                        (click)="onDelete(post.id)"
+                      >
+                        <i class="fas fa-user-minus"> </i>
+                      </button>
+                    <!-- </li>  <li class="list-inline-item">
+                      <button
+                        *ngIf="userIsAuthenticated"
+                        class="btn btn-danger"
+                        (click)="openModal(template))"
+                      >
+                        <i class="fas fa-plus"> </i>
+                      </button>
+                      <ng-template #template>
+                        <div class="modal-header">
+                          <h4 class="modal-title pull-left">Modal</h4>
+                          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          This is a modal.
+                        </div>
+                      </ng-template>
+                    </li> -->
+                   <!-- <li class="list-inline-item">
+
+ 
+</li> -->
+
+
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <li *ngIf="(posts | filterBy: userFilter).length === 0">No matching elements</li>      
+
+    </div>
+  </div>
+</section>

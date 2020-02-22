@@ -1,0 +1,20 @@
+.sk {
+  width: 80%;
+  margin: 3rem auto;
+}
+
+.alert
+{
+  font-weight: 500;
+  margin: 0; padding: 0;
+  background-color: transparent;
+   border: transparent;
+   color:#EA2027;
+   font-size: 15px;
+}
+
+.spinner-border:link{
+  -webkit-transition-property: width; /* Safari */
+  -webkit-transition-duration: 5s; /* Safari */
+  -webkit-transition-delay: 2s;
+}

@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Employee Data</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li routerLinkActive="active"  [routerLinkActiveOptions]="{exact:true}" class="nav-item active">
+        <a class="nav-link"  routerLink="/home">Home <span class="sr-only">(current)</span></a>
+      </li >
+      <li routerLinkActive="active"  class="nav-item" *ngIf="userIsAuthenticated">
+        <a class="nav-link"routerLink="/create" > Add </a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link"routerLink="/login" style="float: right;"> Login </a>
+      </li> -->
+    </ul>
+      <ul class="nav navbar-nav mr-sm-2">
+        <li routerLinkActive="active"><a class="nav-link" href="#" *ngIf="userIsAuthenticated">Welcome </a></li>
+        <li routerLinkActive="active"><a class="nav-link" routerLink="/signup" *ngIf="!userIsAuthenticated"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+        <li routerLinkActive="active"><a class="nav-link" routerLink="/login" *ngIf="!userIsAuthenticated"> <i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <!-- <li routerLinkActive="active"><button class="nav-link" *ngIf="userIsAuthenticated" (click)="onLogout()" style="background-color: transparent;border: transparent;" > <i class="fas fa-sign-out-alt"></i> Logout</button></li> -->
+        <li routerLinkActive="active"><button type="button" class=" btn btn-primary"*ngIf="userIsAuthenticated"  (click)="openModal(template)">Logout</button>
+        <br><br>
+        <!-- <pre class="card card-block card-header">{{message}}</pre> -->
+        <ng-template #template>
+          <div class="modal-body text-center">
+             <pre class="card card-block card-header">Would you like to rate ??</pre> 
+            <div>
+              <rating [max]="5" [(ngModel)]="y" [customTemplate]="tt"></rating>
+              <!-- <div class="card">
+                <pre class="card-block card-header" style="margin:15px 0;"> <b>(<i>Rate:</i> {{y}})</b> </pre>
+              </div> -->
+              <ng-template #tt let-i="index" let-v="value">
+                <button class="btn btn-{{i < v ? 'warning' : 'default'}}">
+                  {{i < v ? '&#9733;' : '&#9734;'}} 
+                </button>
+              </ng-template>
+            </div>
+            <p>Do you want to Logout?</p>
+            <button type="button" class="btn btn-default" (click)="onLogout()" >Yes</button>
+            <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+          </div>
+        </ng-template>
+        </li>
+      </ul>
+
+  </div>
+</nav>
+
+
+
+
+

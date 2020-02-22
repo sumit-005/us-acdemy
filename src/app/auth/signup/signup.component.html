@@ -1,0 +1,108 @@
+
+<div class="sk">
+  <div class="container-fluid">
+    <div class="spinner-border" *ngIf="isLoading" style="width: 5rem; height: 5rem;" role="status"></div>
+      <span class="sr-only">Loading...</span>
+  <form (submit)="onSignUp(postForm)"  *ngIf="!isLoading"#postForm="ngForm">
+    <div class="form-group col-md-5 ">
+      <label  for="validationServer01" >Name</label>
+
+      <div class="input-group-prepend">
+      <span class="input-group-text "id="validationServer01"><i class="fas fa-user "></i></span>
+      <input type="text" class="form-control"  placeholder="Enter name" name = "name"
+        required minlength="3" ngModel #name="ngModel" required>
+      </div>
+
+      <div *ngIf="name.invalid && (name.touched)"
+      class="alert alert-danger" >
+      <div *ngIf="name.errors.required">
+        Name is required.
+      </div>
+      <div *ngIf="name.errors.minlength">
+        Name must be at least 4 characters long.
+      </div>
+  </div>
+    </div>
+    <div class="form-group col-md-5">
+      <label for="email">Email Id:</label>
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+      <input type="email"
+      class="form-control"
+      id="email"
+      pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$"
+       ngModel
+        email="true"
+        name="email"
+        #email="ngModel" placeholder="Enter your email"
+        required>
+      </div>
+
+
+
+        <div *ngIf="email.invalid && (email.touched)"
+    class="alert alert-danger">
+
+        <div *ngIf="email.errors.required && email.untouched">
+         email is required.
+        </div>
+       <!-- <div *ngIf="!validates.test(email.value)">
+          <span style="color:red">Email not Valid</span>
+       </div> -->
+       <div *ngIf="email.errors.pattern">
+          <span style="color:red">Email not Valid</span>
+       </div>
+
+
+    </div>
+
+    </div>
+    <div class="form-group col-md-5">
+      <label>Password:</label>
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1"
+          ><i class="fas fa-key"></i
+        ></span>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          required
+          pattern="(?=^.{6,15}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
+          ngModel
+          #password="ngModel"
+        />
+       
+      </div>
+      <small id="emailHelp" class="form-text text-muted">One small One Capital one digit and one special character</small>
+
+      <div *ngIf="password.invalid && (password.touched)"
+    class="alert-validate" data-validate= "atleast 1 small-case letter, 1 Capital letter, 1 digit, 1 special character ">
+
+        <div *ngIf="password.errors.required && password.untouched">
+         Password is required.
+        </div>
+       <!-- <div *ngIf="!validates.test(password.value)">
+          <span style="color:red">password not Valid</span>
+       </div> -->
+       <div *ngIf="password.errors.pattern">
+          <span style="color:red">   </span>
+       </div>
+    </div>
+    </div>
+    <div class="form-group  col-md-4">
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="postForm.invalid"
+        style="margin-top: 10px;"
+        *ngIf="!isLoading"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+</div>
